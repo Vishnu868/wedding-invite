@@ -210,24 +210,66 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
 </head>
 <body>
 
-<!-- Background Music — replace YOUR_MUSIC_FILE_PATH with your actual file path -->
-<audio id="bg-music" src="YOUR_MUSIC_FILE_PATH" autoplay loop preload="auto" style="display:none"></audio>
-<script>
-  // Autoplay with fallback on first user interaction (browser policy)
-  (function(){
-    const audio = document.getElementById('bg-music');
-    audio.volume = 0.5;
-    const tryPlay = () => {
-      audio.play().catch(() => {});
-    };
-    tryPlay();
-    // Fallback: play on first touch/click if autoplay was blocked
-    const unlock = () => { tryPlay(); document.removeEventListener('click', unlock); document.removeEventListener('touchstart', unlock); };
-    document.addEventListener('click', unlock);
-    document.addEventListener('touchstart', unlock);
-  })();
-</script>
+<!-- Background Music -->
+<audio id="bg-music" src="YOUR_MUSIC_FILE_PATH" loop preload="auto"></audio>
 
+<!-- Minimal Speaker Button -->
+<button id="music-btn" style="
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  z-index:9999;
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:50%;
+  background:rgba(200,117,10,0.85);
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
+">
+  🔊
+</button>
+
+<script>
+(function(){
+  const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('music-btn');
+
+  audio.volume = 0.5;
+
+  function playAudio(){
+    audio.play().then(() => {
+      btn.textContent = "🔊";
+    }).catch(() => {});
+  }
+
+  // Try autoplay
+  playAudio();
+
+  // Fallback for mobile
+  const unlock = () => {
+    playAudio();
+    document.removeEventListener('click', unlock);
+    document.removeEventListener('touchstart', unlock);
+  };
+  document.addEventListener('click', unlock);
+  document.addEventListener('touchstart', unlock);
+
+  // Toggle
+  btn.addEventListener('click', () => {
+    if(audio.paused){
+      audio.play();
+      btn.textContent = "🔊";
+    } else {
+      audio.pause();
+      btn.textContent = "🔇";
+    }
+  });
+
+})();
+</script>
 <div class="hero-wrapper">
 
   <!-- HERO — always rendered underneath, z-index:1 -->
