@@ -216,8 +216,10 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
 </head>
 <body>
 
-<audio id="bg-music" src="assets/jwdss.mp3" loop preload="auto"></audio>
+<!-- Background Music -->
+<audio id="bg-music" src="YOUR_MUSIC_FILE_PATH" loop preload="auto"></audio>
 
+<!-- Minimal Speaker Button (Bottom Left) -->
 <button id="music-btn" style="
   position:fixed;
   bottom:20px;
@@ -227,12 +229,13 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
   height:50px;
   border:none;
   border-radius:50%;
-  background:rgba(148, 95, 3, 0.919);
+  background:rgba(200,117,10,0.85);
   color:#fff;
-  font-size:20px;
+  font-size:22px;
   cursor:pointer;
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
 ">
-  🔊
+  🔇
 </button>
 
 <script>
@@ -242,20 +245,22 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
 
   audio.volume = 0.5;
 
-  let isPlaying = false;
+  let isStarted = false;
 
-  // Try autoplay (will fail silently in most browsers)
+  // Try autoplay
   audio.play().then(() => {
-    isPlaying = true;
+    btn.textContent = "🔊";
+    isStarted = true;
   }).catch(() => {
-    isPlaying = false;
+    btn.textContent = "🔇"; // autoplay blocked → correct state
   });
 
-  // 🔥 FIRST USER INTERACTION → FORCE PLAY
+  // FIRST USER INTERACTION → start music
   const startAudio = () => {
-    if(!isPlaying){
+    if(!isStarted){
       audio.play();
-      isPlaying = true;
+      btn.textContent = "🔊";
+      isStarted = true;
     }
     document.removeEventListener('click', startAudio);
     document.removeEventListener('touchstart', startAudio);
@@ -264,24 +269,21 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
   document.addEventListener('click', startAudio);
   document.addEventListener('touchstart', startAudio);
 
-  // Toggle button
+  // Toggle button (play/pause)
   btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent triggering startAudio again
+    e.stopPropagation(); // avoid triggering startAudio again
 
     if(audio.paused){
       audio.play();
       btn.textContent = "🔊";
-      isPlaying = true;
     } else {
       audio.pause();
       btn.textContent = "🔇";
-      isPlaying = false;
     }
   });
 
 })();
 </script>
-
 <div class="hero-wrapper">
 
   <!-- HERO — always rendered underneath, z-index:1 -->
