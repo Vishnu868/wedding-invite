@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jayanth & Santhosha Laxmi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&family=Noto+Serif+Telugu:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#060402;--amber:#C8750A;--gold:#D4A017;
+  --gold-hi:#F0C840;--flame-o:#E8500A;
+  --cream:#F5EDD8;--parch:#EDE0C0;--ink:#1A0E04;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--black);font-family:'Cormorant Garamond',serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ══════════════════════════════════
+   CURTAIN SYSTEM — Two physical panels
+   Hero is always visible underneath.
+   Panels slide left/right revealing it.
+══════════════════════════════════ */
+.hero-wrapper{position:relative;min-height:100svh;overflow:hidden}
+
+/* Hero is the base layer */
+.hero{
+  min-height:100svh;
+  background:radial-gradient(ellipse 70% 55% at 50% 8%,rgba(200,117,10,0.28) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,rgba(100,50,5,0.35) 0%,transparent 65%),
+    radial-gradient(ellipse 100% 100% at 50% 50%,#120A04 0%,#080502 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:72px 32px 64px;position:relative;overflow:hidden;z-index:1;
+}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.6;z-index:0}
+.hero-flame-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);width:min(90vw,440px);height:min(90vw,440px);border-radius:50%;background:radial-gradient(circle,rgba(200,117,10,0.07) 0%,transparent 70%);pointer-events:none;z-index:0;animation:flame-bg-pulse 4s ease-in-out infinite alternate}
+@keyframes flame-bg-pulse{0%{transform:translate(-50%,-58%) scale(1);opacity:0.6}100%{transform:translate(-50%,-58%) scale(1.15);opacity:1}}
+.corner-diya{position:absolute;width:44px;height:44px;opacity:0.35;filter:drop-shadow(0 0 6px rgba(200,117,10,0.5))}
+.corner-diya.tl{top:16px;left:16px}.corner-diya.tr{top:16px;right:16px;transform:scaleX(-1)}
+.invocation{font-family:'Noto Serif Telugu',serif;color:var(--gold);font-size:1.05rem;letter-spacing:2px;text-shadow:0 0 20px rgba(212,160,23,0.5);position:relative;z-index:2;filter:brightness(1.3)}
+.invocation-en{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:5px;color:rgba(212,160,23,0.75);text-transform:uppercase;margin-top:3px;margin-bottom:28px;position:relative;z-index:2}
+.orn{display:flex;align-items:center;gap:10px;margin:14px 0;width:100%;position:relative;z-index:2}
+.orn-line{flex:1;max-width:70px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,0.45))}.orn-line.r{background:linear-gradient(270deg,transparent,rgba(212,160,23,0.45))}
+.orn-dot{color:var(--gold);font-size:0.5rem;letter-spacing:4px;opacity:0.65}
+.cordially{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:rgba(212,160,23,0.85);font-size:0.76rem;letter-spacing:3px;text-transform:uppercase;position:relative;z-index:2}
+.cordially-tel{font-family:'Noto Serif Telugu',serif;color:rgba(212,160,23,0.7);font-size:0.7rem;margin-top:3px;position:relative;z-index:2}
+.name-block{text-align:center;position:relative;z-index:2;margin:28px 0 16px}
+.name-groom{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.6rem,11vw,4rem);line-height:1.05;color:var(--gold-hi);text-shadow:0 2px 8px rgba(0,0,0,0.8),0 0 50px rgba(200,117,10,0.45),0 0 100px rgba(200,117,10,0.15)}
+.name-amp{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:rgba(200,117,10,0.55);font-size:2rem;display:block;line-height:1.8}
+.name-bride{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(2.1rem,9vw,3.3rem);line-height:1.1;color:#F0D0A0;text-shadow:0 2px 8px rgba(0,0,0,0.75),0 0 45px rgba(200,117,10,0.35)}
+.name-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.7);font-size:0.76rem;margin-top:10px}
+.parents-card{width:100%;max-width:310px;background:rgba(200,117,10,0.07);backdrop-filter:blur(14px);border:1px solid rgba(200,117,10,0.2);border-radius:20px;padding:22px 26px;box-shadow:0 12px 40px rgba(0,0,0,0.6);position:relative;z-index:2;margin-top:28px}
+.p-label{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.p-value{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(240,208,160,0.82);font-size:0.98rem;line-height:1.5}
+.p-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(200,117,10,0.25),transparent);margin:14px 0}
+.scroll-nudge{margin-top:44px;position:relative;z-index:2;animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(7px);opacity:.8}}
+
+/* ── CURTAIN PANELS (sit above hero, z-index:10) ── */
+#curtain-stage{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  pointer-events:auto;
+  overscroll-behavior:contain;
+  cursor:pointer;
+  touch-action:auto;
+}
+
+#panel-left,
+#panel-right{
+  pointer-events:auto;
+}
+#curtain-stage.done{pointer-events:none}
+
+/* Left and right panels — each is 50%+10px wide (overlap at seam) */
+#panel-left, #panel-right{
+  position:absolute;top:0;bottom:0;
+  width:calc(50% + 2px);
+  will-change:transform;
+  overflow:visible;
+}
+#panel-left{
+  left:0;
+  transform-origin:left center;
+  /* canvas inside draws from 0 to panelWidth */
+}
+#panel-right{
+  right:0;
+  transform-origin:right center;
+}
+
+#panel-left canvas, #panel-right canvas{
+  display:block;
+  position:absolute;top:0;left:0;
+  /* sized by JS */
+}
+
+
+
+/* Curtain text (shown before open) */
+#curtain-text{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-58%);
+  z-index:15;text-align:center;
+  pointer-events:none;
+  opacity:0;transition:opacity 1s ease;
+}
+#curtain-stage.lit #curtain-text{opacity:1}
+.ct-line1{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:7px;color:rgba(255,200,100,0.4);text-transform:uppercase;margin-bottom:10px}
+.ct-names{font-family:'Playfair Display',serif;font-style:italic;color:rgba(240,200,100,0.65);font-size:clamp(1.2rem,4.5vw,1.7rem);line-height:1.3;text-shadow:0 0 30px rgba(200,117,10,0.3)}
+.ct-sub{font-family:'Noto Serif Telugu',serif;color:rgba(200,150,60,0.4);font-size:0.72rem;margin-top:6px}
+
+/* Tap hint */
+#tap-hint{
+  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
+  z-index:16;text-align:center;pointer-events:none;
+  opacity:0;transition:opacity 1.2s ease;
+}
+#curtain-stage.lit #tap-hint{opacity:1}
+.th-hands{font-size:2rem;display:block;animation:hpulse 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px rgba(200,117,10,0.6))}
+@keyframes hpulse{0%,100%{transform:scale(1) translateY(0);opacity:0.6}50%{transform:scale(1.18) translateY(-5px);opacity:1}}
+.th-label{font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:5px;color:rgba(200,117,10,0.5);text-transform:uppercase;display:block;margin-top:5px}
+
+/* Petal */
+.petal{position:fixed;pointer-events:none;z-index:600;animation:petal-fall linear forwards}
+@keyframes petal-fall{0%{opacity:0;transform:translateY(0) rotate(0deg) scale(1)}10%{opacity:1}90%{opacity:0.8}100%{opacity:0;transform:translateY(var(--dy)) rotate(var(--rot)) scale(0.6)}}
+
+/* ── REST OF PAGE ── */
+.scratch-section{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,117,10,0.15) 0%,transparent 65%),linear-gradient(180deg,#0A0602 0%,#060402 100%);min-height:85svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 28px;position:relative;overflow:hidden}
+.scratch-section::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(200,117,10,0.04) 1px,transparent 1px);background-size:20px 20px}
+.scratch-section::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(200,117,10,0.6),rgba(240,200,64,0.8),rgba(200,117,10,0.6),transparent)}
+.scr-eyebrow{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:7px;color:rgba(200,117,10,0.5);text-transform:uppercase;margin-bottom:8px}
+.scr-title{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-hi);font-size:2.2rem;text-align:center;margin-bottom:4px}
+.scr-sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(240,200,140,0.6);font-size:0.8rem;letter-spacing:3px;margin-bottom:5px}
+.scr-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,150,60,0.4);font-size:0.7rem;margin-bottom:44px}
+.foil-outer{position:relative;width:280px;height:300px;filter:drop-shadow(0 20px 50px rgba(100,50,5,0.22))}
+.foil-revealed{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#FFFDF7 0%,#FDF6E8 50%,#FAF0D8 100%);clip-path:path('M140 272 C140 272 18 188 18 102 C18 52 56 22 96 22 C116 22 134 32 140 48 C146 32 164 22 184 22 C224 22 262 52 262 102 C262 188 140 272 140 272 Z');overflow:hidden}
+.foil-date-block{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1}
+.foil-date-num{font-family:'Playfair Display',serif;font-weight:700;color:var(--ink);font-size:5.5rem;line-height:1;text-shadow:0 2px 0 rgba(255,255,255,0.8);letter-spacing:-2px}
+.foil-date-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(200,117,10,0.5),transparent);margin:0 auto}
+.foil-month-wrap{display:flex;align-items:center;gap:12px}
+.foil-month{font-family:'Cinzel',serif;font-weight:500;color:rgba(26,14,4,0.75);font-size:1.1rem;letter-spacing:4px}
+.foil-dot{color:rgba(200,117,10,0.5);font-size:0.4rem}
+.foil-year{font-family:'Cormorant Garamond',serif;font-weight:300;color:rgba(26,14,4,0.45);font-size:1rem;letter-spacing:3px}
+#foil-canvas{position:absolute;inset:0;width:280px;height:300px;z-index:2;cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none}
+.countdown-section{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,117,10,0.2) 0%,transparent 65%),linear-gradient(180deg,#0A0602 0%,#060402 100%);padding:90px 28px 80px;text-align:center;position:relative;overflow:hidden}
+.countdown-section::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,117,10,0.4),transparent)}
+.cd-eyebrow{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:6px;color:rgba(200,117,10,0.4);text-transform:uppercase;margin-bottom:10px}
+.cd-title{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-hi);font-size:1.8rem;line-height:1.2;margin-bottom:6px}
+.cd-title-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.35);font-size:0.76rem;margin-bottom:48px}
+.cd-grid{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:60px}
+.diya-unit{display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
+.diya-canvas-wrap{position:relative;width:72px;height:80px}
+.diya-canvas-wrap canvas{width:72px;height:80px;display:block}
+.diya-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:radial-gradient(circle,rgba(200,117,10,0.45) 0%,transparent 70%);animation:diya-pulse 2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes diya-pulse{0%{opacity:0.5;transform:translateX(-50%) scale(0.85)}100%{opacity:1;transform:translateX(-50%) scale(1.2)}}
+.cd-num{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-hi);font-size:2rem;line-height:1;display:block;text-shadow:0 0 20px rgba(200,117,10,0.6)}
+.cd-unit-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:2px;color:rgba(200,117,10,0.5);text-transform:uppercase;display:block}
+.cd-unit-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.3);font-size:0.54rem;display:block}
+.muh-wrap{max-width:288px;margin:0 auto}
+.muh-rule{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.muh-rule-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(200,117,10,0.4))}.muh-rule-line.r{background:linear-gradient(270deg,transparent,rgba(200,117,10,0.4))}
+.muh-rule-label{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:3px;color:var(--gold);white-space:nowrap}
+.muh-card{background:linear-gradient(145deg,rgba(200,117,10,0.18) 0%,rgba(100,50,5,0.35) 100%);border:1px solid rgba(200,117,10,0.3);border-radius:20px;padding:28px 28px 24px;box-shadow:0 16px 50px rgba(0,0,0,0.65)}
+.muh-time{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-hi);font-size:2.8rem;display:block;text-align:center;text-shadow:0 0 30px rgba(200,117,10,0.5)}
+.muh-sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(240,200,140,0.65);font-size:0.88rem;text-align:center;display:block;margin-top:6px;letter-spacing:1px}
+.muh-sub-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.38);font-size:0.68rem;text-align:center;display:block;margin-top:4px}
+.venue-section{background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(200,117,10,0.13) 0%,transparent 65%),linear-gradient(180deg,#060402 0%,#080503 100%);padding:80px 24px 90px;position:relative;overflow:hidden}
+.jasmine-border{position:absolute;left:0;right:0;height:40px;pointer-events:none;overflow:hidden;opacity:0.55}
+.jasmine-border.top{top:0}.jasmine-border.bottom{bottom:0;transform:scaleY(-1)}
+.jasmine-border svg{width:100%;height:40px}
+.venue-section::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(200,117,10,0.05) 1px,transparent 1px);background-size:24px 24px}
+.v-eyebrow{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:6px;color:rgba(200,117,10,0.5);text-transform:uppercase;text-align:center;margin-bottom:10px}
+.v-title{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-hi);font-size:2rem;text-align:center;margin-bottom:4px}
+.v-title-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.45);font-size:0.76rem;text-align:center}
+.venue-card{max-width:360px;margin:36px auto 0;background:rgba(20,10,4,0.85);border:1px solid rgba(200,117,10,0.2);border-radius:28px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5)}
+.vc-head{background:linear-gradient(140deg,#7A3A08 0%,#B05010 50%,#5A2804 100%);padding:36px 28px 52px;text-align:center;position:relative;overflow:visible}
+.vc-head::before{content:'';position:absolute;inset:10px;border:1px solid rgba(248,184,32,0.18);border-radius:18px 18px 0 0;pointer-events:none}
+.vc-head::after{content:'';position:absolute;bottom:-22px;left:0;right:0;height:44px;background:rgba(14,8,3,0.95);border-radius:50% 50% 0 0/100% 100% 0 0}
+.vc-diya{width:48px;height:48px;margin:0 auto 12px;display:block}
+.vc-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-hi);font-size:1.55rem;line-height:1.2}
+.vc-body{padding:40px 28px 28px}
+.vc-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(200,117,10,0.12)}
+.vc-row:last-of-type{border-bottom:none}
+.vc-ico{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(145deg,rgba(200,117,10,0.12),rgba(200,117,10,0.06));border:1px solid rgba(200,117,10,0.18);display:flex;align-items:center;justify-content:center}
+.vc-ico svg{width:18px;height:18px}
+.vc-content{flex:1}
+.vc-label{font-family:'Cinzel',serif;font-size:0.54rem;letter-spacing:3px;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:2px}
+.vc-value{font-family:'Cormorant Garamond',serif;color:rgba(240,210,160,0.9);font-size:1.02rem;line-height:1.45}
+.vc-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,150,60,0.4);font-size:0.67rem;display:block;margin-top:1px}
+.dir-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:24px;padding:17px 24px;background:linear-gradient(140deg,#7A3A08 0%,#B05010 100%);border-radius:16px;color:var(--gold-hi);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;letter-spacing:1px;text-decoration:none;border:none;cursor:pointer;width:100%;box-shadow:0 8px 24px rgba(100,50,5,0.4)}
+.dir-btn svg{width:16px;height:16px;flex-shrink:0}
+footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1px solid rgba(200,117,10,0.08)}
+.ft-flame{margin:0 auto 16px;display:block;width:32px;height:40px}
+.ft-names{font-family:'Playfair Display',serif;font-weight:500;color:var(--gold);font-size:1rem;letter-spacing:1px}
+.ft-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.32);font-size:0.73rem;margin-top:4px}
+.ft-love{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(200,117,10,0.25);font-size:0.82rem;letter-spacing:2px;margin-top:20px}
+.sr{
+  opacity:1;
+  transform:none;
+  transition:opacity 0.9s var(--ease),transform 0.9s var(--ease)
+}
+.sr.in{opacity:1;transform:translateY(0)}
+.sr-d1{transition-delay:0.06s}.sr-d2{transition-delay:0.18s}.sr-d3{transition-delay:0.32s}.sr-d4{transition-delay:0.46s}
+</style>
+</head>
+<body>
+
+<!-- Background Music — replace YOUR_MUSIC_FILE_PATH with your actual file path -->
+<audio id="bg-music" src="YOUR_MUSIC_FILE_PATH" autoplay loop preload="auto" style="display:none"></audio>
+<script>
+  // Autoplay with fallback on first user interaction (browser policy)
+  (function(){
+    const audio = document.getElementById('bg-music');
+    audio.volume = 0.5;
+    const tryPlay = () => {
+      audio.play().catch(() => {});
+    };
+    tryPlay();
+    // Fallback: play on first touch/click if autoplay was blocked
+    const unlock = () => { tryPlay(); document.removeEventListener('click', unlock); document.removeEventListener('touchstart', unlock); };
+    document.addEventListener('click', unlock);
+    document.addEventListener('touchstart', unlock);
+  })();
+</script>
+
+<div class="hero-wrapper">
+
+  <!-- HERO — always rendered underneath, z-index:1 -->
+  <section class="hero">
+    <div class="hero-flame-bg"></div>
+    <svg class="corner-diya tl" viewBox="0 0 44 44" fill="none"><ellipse cx="22" cy="32" rx="14" ry="6" fill="rgba(200,117,10,0.3)"/><ellipse cx="22" cy="30" rx="10" ry="4.5" fill="rgba(200,117,10,0.6)"/><ellipse cx="22" cy="28" rx="6" ry="3" fill="rgba(248,184,32,0.5)"/><ellipse cx="22" cy="24" rx="3.5" ry="6" fill="rgba(232,80,10,0.85)"/><ellipse cx="22" cy="20" rx="2.5" ry="4.5" fill="rgba(248,184,32,0.9)"/><ellipse cx="22" cy="17" rx="1.5" ry="3" fill="rgba(255,240,180,0.8)"/></svg>
+    <svg class="corner-diya tr" viewBox="0 0 44 44" fill="none"><ellipse cx="22" cy="32" rx="14" ry="6" fill="rgba(200,117,10,0.3)"/><ellipse cx="22" cy="30" rx="10" ry="4.5" fill="rgba(200,117,10,0.6)"/><ellipse cx="22" cy="28" rx="6" ry="3" fill="rgba(248,184,32,0.5)"/><ellipse cx="22" cy="24" rx="3.5" ry="6" fill="rgba(232,80,10,0.85)"/><ellipse cx="22" cy="20" rx="2.5" ry="4.5" fill="rgba(248,184,32,0.9)"/><ellipse cx="22" cy="17" rx="1.5" ry="3" fill="rgba(255,240,180,0.8)"/></svg>
+    <div class="invocation sr sr-d1">&#x0C36;&#x0C4D;&#x0C30;&#x0C40; &#x0C17;&#x0C23;&#x0C47;&#x0C36;&#x0C3E;&#x0C2F; &#x0C28;&#x0C2E;&#x0C03;</div>
+    <div class="invocation-en sr sr-d1">Shree Ganesha Namah</div>
+    <div class="orn sr sr-d2"><div class="orn-line"></div><span class="orn-dot">&#x25C6; &#x25C6; &#x25C6;</span><div class="orn-line r"></div></div>
+    <div class="cordially sr sr-d2">You are cordially invited to the wedding of</div>
+    <div class="cordially-tel sr sr-d2">&#x0C35;&#x0C3F;&#x0C35;&#x0C3E;&#x0C39; &#x0C36;&#x0C41;&#x0C2D;&#x0C15;&#x0C3E;&#x0C30;&#x0C4D;&#x0C2F;&#x0C2E;&#x0C41;&#x0C28;&#x0C15;&#x0C41; &#x0C06;&#x0C39;&#x0C4D;&#x0C35;&#x0C3E;&#x0C28;&#x0C3F;&#x0C38;&#x0C4D;&#x0C24;&#x0C41;&#x0C28;&#x0C4D;&#x0C28;&#x0C3E;&#x0C2E;&#x0C41;</div>
+    <div class="name-block sr sr-d3">
+      <div class="name-groom">Jayanth</div>
+      <span class="name-amp">&amp;</span>
+      <div class="name-bride">Santhosha Laxmi</div>
+      <div class="name-tel">&#x0C1C;&#x0C2F;&#x0C02;&#x0C24;&#x0C4D; &amp; &#x0C38;&#x0C02;&#x0C24;&#x0C4B;&#x0C37; &#x0C32;&#x0C15;&#x0C4D;&#x0C37;&#x0C4D;&#x0C2E;&#x0C3F;</div>
+    </div>
+    <div class="parents-card sr sr-d4">
+      <div class="p-label">Groom · &#x0C35;&#x0C30;&#x0C41;&#x0C21;&#x0C41;</div>
+      <div class="p-value">S/o J. Bhavani</div>
+      <div class="p-divider"></div>
+      <div class="p-label">Bride · &#x0C35;&#x0C27;&#x0C41;&#x0C35;&#x0C41;</div>
+      <div class="p-value">D/o T. Punyamurthy &amp; Renuka</div>
+    </div>
+    <div class="scroll-nudge sr sr-d4"><svg viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M10 3v14M5 13l5 5 5-5" stroke="rgba(200,117,10,0.4)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </section>
+
+  <!-- CURTAIN STAGE — z-index:10, sits above hero -->
+  <div id="curtain-stage">
+    <div id="panel-left"><canvas id="cvL"></canvas></div>
+    <div id="panel-right"><canvas id="cvR"></canvas></div>
+
+    <div id="curtain-text">
+      <div class="ct-line1">A Wedding Invitation</div>
+      <div class="ct-names">Jayanth<br>&amp; Santhosha Laxmi</div>
+      <div class="ct-sub">జయంత్ &amp; సంతోష లక్ష్మి</div>
+    </div>
+    <div id="tap-hint">
+      <span class="th-hands">👐</span>
+      <span class="th-label">Touch to Open</span>
+    </div>
+  </div>
+
+</div><!-- hero-wrapper end -->
+
+<!-- SCRATCH -->
+<section class="scratch-section">
+  <div class="scr-eyebrow sr">— Reveal —</div>
+  <div class="scr-title sr">Scratch to Discover</div>
+  <div class="scr-sub sr">the date of our wedding</div>
+  <div class="foil-outer sr">
+    <div class="foil-revealed">
+      <div class="foil-date-block">
+        <div class="foil-date-num">03</div>
+        <div class="foil-date-rule"></div>
+        <div class="foil-month-wrap">
+          <span class="foil-month">APRIL</span>
+          <span class="foil-dot">&#x25C6;</span>
+          <span class="foil-year">2025</span>
+        </div>
+      </div>
+    </div>
+    <canvas id="foil-canvas" width="560" height="600"></canvas>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="cd-eyebrow sr">— Countdown —</div>
+  <div class="cd-title sr">Counting Down<br><span style="font-size:1.2rem;font-weight:400">to our Wedding</span></div>
+  <div class="cd-title-tel sr">&#x0C35;&#x0C3F;&#x0C35;&#x0C3E;&#x0C39;&#x0C3E;&#x0C28;&#x0C3F;&#x0C15;&#x0C3F; &#x0C2E;&#x0C3F;&#x0C17;&#x0C3F;&#x0C32;&#x0C3F;&#x0C28; &#x0C38;&#x0C2E;&#x0C2F;&#x0C02;</div>
+  <div class="cd-grid sr">
+    <div class="diya-unit"><div class="diya-canvas-wrap"><div class="diya-glow"></div><canvas class="diya-cv" width="144" height="160"></canvas></div><span class="cd-num" id="cdD">--</span><span class="cd-unit-label">Days</span><span class="cd-unit-tel">&#x0C30;&#x0C4B;&#x0C1C;&#x0C41;&#x0C32;&#x0C41;</span></div>
+    <div class="diya-unit"><div class="diya-canvas-wrap"><div class="diya-glow"></div><canvas class="diya-cv" width="144" height="160"></canvas></div><span class="cd-num" id="cdH">--</span><span class="cd-unit-label">Hours</span><span class="cd-unit-tel">&#x0C17;&#x0C02;&#x0C1F;&#x0C32;&#x0C41;</span></div>
+    <div class="diya-unit"><div class="diya-canvas-wrap"><div class="diya-glow"></div><canvas class="diya-cv" width="144" height="160"></canvas></div><span class="cd-num" id="cdM">--</span><span class="cd-unit-label">Mins</span><span class="cd-unit-tel">&#x0C28;&#x0C3F;&#x0C2E;&#x0C3F;&#x0C37;&#x0C3E;&#x0C32;&#x0C41;</span></div>
+    <div class="diya-unit"><div class="diya-canvas-wrap"><div class="diya-glow"></div><canvas class="diya-cv" width="144" height="160"></canvas></div><span class="cd-num" id="cdS">--</span><span class="cd-unit-label">Secs</span><span class="cd-unit-tel">&#x0C38;&#x0C46;&#x0C15;&#x0C28;&#x0C4D;&#x0C32;&#x0C41;</span></div>
+  </div>
+  <div class="muh-wrap sr">
+    <div class="muh-rule"><div class="muh-rule-line"></div><div class="muh-rule-label">&#x0C36;&#x0C41;&#x0C2D; &#x0C2E;&#x0C41;&#x0C39;&#x0C42;&#x0C30;&#x0C4D;&#x0C24;&#x0C02; &nbsp;·&nbsp; Muhurtham</div><div class="muh-rule-line r"></div></div>
+    <div class="muh-card"><span class="muh-time">11:42 AM</span><span class="muh-sub">Thursday, April 03 · 2025</span><span class="muh-sub-tel">&#x0C17;&#x0C41;&#x0C30;&#x0C41;&#x0C35;&#x0C3E;&#x0C30;&#x0C02;, &#x0C0F;&#x0C2A;&#x0C4D;&#x0C30;&#x0C3F;&#x0C32;&#x0C4D; 03, 2025</span></div>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="venue-section">
+  <div class="jasmine-border top"><svg viewBox="0 0 400 40" preserveAspectRatio="none" fill="none"><path d="M0 20 Q50 8 100 20 Q150 32 200 20 Q250 8 300 20 Q350 32 400 20" stroke="rgba(100,120,50,0.5)" stroke-width="1.2"/><g fill="rgba(255,255,240,0.7)"><circle cx="50" cy="12" r="4"/><circle cx="46" cy="12" r="2.5"/><circle cx="54" cy="12" r="2.5"/><circle cx="50" cy="8" r="2.5"/><circle cx="50" cy="16" r="2.5"/><circle cx="150" cy="28" r="4"/><circle cx="146" cy="28" r="2.5"/><circle cx="154" cy="28" r="2.5"/><circle cx="150" cy="24" r="2.5"/><circle cx="150" cy="32" r="2.5"/><circle cx="250" cy="12" r="4"/><circle cx="246" cy="12" r="2.5"/><circle cx="254" cy="12" r="2.5"/><circle cx="250" cy="8" r="2.5"/><circle cx="250" cy="16" r="2.5"/><circle cx="350" cy="28" r="4"/><circle cx="346" cy="28" r="2.5"/><circle cx="354" cy="28" r="2.5"/><circle cx="350" cy="24" r="2.5"/><circle cx="350" cy="32" r="2.5"/><circle cx="100" cy="20" r="3.5"/><circle cx="200" cy="20" r="3.5"/><circle cx="300" cy="20" r="3.5"/></g></svg></div>
+  <div class="jasmine-border bottom"><svg viewBox="0 0 400 40" preserveAspectRatio="none" fill="none"><path d="M0 20 Q50 8 100 20 Q150 32 200 20 Q250 8 300 20 Q350 32 400 20" stroke="rgba(100,120,50,0.5)" stroke-width="1.2"/><g fill="rgba(255,255,240,0.7)"><circle cx="50" cy="12" r="4"/><circle cx="150" cy="28" r="4"/><circle cx="250" cy="12" r="4"/><circle cx="350" cy="28" r="4"/><circle cx="100" cy="20" r="3.5"/><circle cx="200" cy="20" r="3.5"/><circle cx="300" cy="20" r="3.5"/></g></svg></div>
+  <div class="v-eyebrow sr">— The Celebration —</div>
+  <div class="v-title sr">Venue &amp; Details</div>
+  <div class="v-title-tel sr">&#x0C35;&#x0C47;&#x0C21;&#x0C41;&#x0C15; &#x0C38;&#x0C4D;&#x0C25;&#x0C32;&#x0C02; &#x0C35;&#x0C3F;&#x0C35;&#x0C30;&#x0C3E;&#x0C32;&#x0C41;</div>
+  <div class="venue-card sr">
+    <div class="vc-head">
+      <svg class="vc-diya" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="38" rx="18" ry="7" fill="rgba(200,117,10,0.4)"/><ellipse cx="24" cy="35" rx="14" ry="5.5" fill="rgba(180,90,8,0.75)"/><ellipse cx="24" cy="33" rx="10" ry="4" fill="rgba(200,117,10,0.9)"/><ellipse cx="24" cy="31" rx="6" ry="2.5" fill="rgba(248,184,32,0.6)"/><rect x="23" y="24" width="2" height="8" rx="1" fill="rgba(80,40,5,0.8)"/><ellipse cx="24" cy="20" rx="3.5" ry="6" fill="rgba(232,80,10,0.9)"/><ellipse cx="24" cy="17" rx="2.5" ry="4.5" fill="rgba(248,184,32,0.95)"/><ellipse cx="24" cy="15" rx="1.5" ry="3" fill="rgba(255,240,180,0.9)"/></svg>
+      <div class="vc-name">AR Gardens</div>
+    </div>
+    <div class="vc-body">
+      <div class="vc-row"><div class="vc-ico"><svg viewBox="0 0 18 18" fill="none"><path d="M9 1C6.24 1 4 3.24 4 6c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5z" stroke="#7A3A08" stroke-width="1.2" fill="rgba(200,117,10,0.08)"/><circle cx="9" cy="6" r="2" stroke="#7A3A08" stroke-width="1"/></svg></div><div class="vc-content"><span class="vc-label">Location</span><div class="vc-value">Near Maremma Thali Temple<br><span style="font-size:0.88rem;opacity:0.7">Mutharam, Hanamkonda</span></div><span class="vc-tel">&#x0C2E;&#x0C3E;&#x0C30;&#x0C46;&#x0C2E;&#x0C4D;&#x0C2E; &#x0C24;&#x0C32;&#x0C4D;&#x0C32;&#x0C3F; &#x0C26;&#x0C47;&#x0C35;&#x0C3E;&#x0C32;&#x0C2F;&#x0C02; &#x0C38;&#x0C2E;&#x0C40;&#x0C2A;&#x0C02;</span></div></div>
+      <div class="vc-row"><div class="vc-ico"><svg viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="13" rx="2" stroke="#7A3A08" stroke-width="1.1" fill="rgba(200,117,10,0.06)"/><path d="M2 7h14" stroke="#7A3A08" stroke-width="0.8"/><path d="M6 1v4M12 1v4" stroke="#7A3A08" stroke-width="1.1" stroke-linecap="round"/></svg></div><div class="vc-content"><span class="vc-label">Date</span><div class="vc-value">Thursday, April 03, 2025</div><span class="vc-tel">&#x0C17;&#x0C41;&#x0C30;&#x0C41;&#x0C35;&#x0C3E;&#x0C30;&#x0C02;, &#x0C0F;&#x0C2A;&#x0C4D;&#x0C30;&#x0C3F;&#x0C32;&#x0C4D; 03, 2025</span></div></div>
+      <div class="vc-row"><div class="vc-ico"><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#7A3A08" stroke-width="1.1" fill="rgba(200,117,10,0.06)"/><path d="M9 5v4l3 2" stroke="#7A3A08" stroke-width="1.1" stroke-linecap="round"/></svg></div><div class="vc-content"><span class="vc-label">Muhurtham</span><div class="vc-value">11:42 AM</div><span class="vc-tel">&#x0C36;&#x0C41;&#x0C2D; &#x0C2E;&#x0C41;&#x0C39;&#x0C42;&#x0C30;&#x0C4D;&#x0C24;&#x0C02;</span></div></div>
+      <a class="dir-btn" href="https://maps.app.goo.gl/4EjvyaXG775kucKz5?g_st=aw" target="_blank"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="rgba(248,184,32,0.8)" stroke-width="1.2" fill="rgba(248,184,32,0.15)"/><circle cx="8" cy="6" r="1.8" stroke="rgba(248,184,32,0.7)" stroke-width="1"/></svg>Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="ft-flame" viewBox="0 0 32 40" fill="none"><ellipse cx="16" cy="36" rx="12" ry="4.5" fill="rgba(200,117,10,0.35)"/><ellipse cx="16" cy="33" rx="8" ry="3.5" fill="rgba(200,117,10,0.65)"/><ellipse cx="16" cy="25" rx="5" ry="9" fill="rgba(232,80,10,0.85)"/><ellipse cx="16" cy="20" rx="3.5" ry="7" fill="rgba(248,184,32,0.9)"/><ellipse cx="16" cy="16" rx="2" ry="4.5" fill="rgba(255,240,180,0.85)"/></svg>
+  <div class="ft-names">Jayanth &amp; Santhosha Laxmi</div>
+  <div class="ft-tel">&#x0C1C;&#x0C2F;&#x0C02;&#x0C24;&#x0C4D; &amp; &#x0C38;&#x0C02;&#x0C24;&#x0C4B;&#x0C37; &#x0C32;&#x0C15;&#x0C4D;&#x0C37;&#x0C4D;&#x0C2E;&#x0C3F;</div>
+  <div class="ft-love">with love &amp; blessings</div>
+</footer>
+
+<script>
+/* CURTAIN ENGINE — clean rebuild */
+(function(){
+  document.body.style.overflow = "auto";
+  const stage  = document.getElementById('curtain-stage');
+  const panelL = document.getElementById('panel-left');
+  const panelR = document.getElementById('panel-right');
+  const cvL    = document.getElementById('cvL');
+  const cvR    = document.getElementById('cvR');
+
+  let W, H, DPR, PW;
+  let openT = 0, opening = false, openStart = 0;
+  const OPEN_MS = 7500;
+  let tickT = 0, done = false;
+
+  function easeExpo(t){ return t>=1?1:1-Math.pow(2,-10*Math.min(t,1)) }
+  function easeCubic(t){ t=Math.min(Math.max(t,0),1); return 1-Math.pow(1-t,3) }
+  function smoothstep(t){ t=Math.min(Math.max(t,0),1); return t*t*(3-2*t) }
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio||1, 2.5);
+    W   = stage.offsetWidth  || window.innerWidth;
+    H   = stage.offsetHeight || window.innerHeight;
+    PW  = Math.ceil(W/2) + 2;
+
+    panelL.style.cssText = `position:absolute;top:0;bottom:0;left:0;width:${PW}px;overflow:visible`;
+    panelR.style.cssText = `position:absolute;top:0;bottom:0;right:0;width:${PW}px;overflow:visible`;
+
+    [cvL, cvR].forEach(cv => {
+      cv.width  = PW * DPR;
+      cv.height = H  * DPR;
+      cv.style.cssText = `display:block;position:absolute;top:0;left:0;width:${PW}px;height:${H}px`;
+    });
+
+  }
+
+  // ─── Draw one panel ───────────────────────────────────────────
+  // The key invariant:
+  //   Left panel:  outer wall = x:0 (stays), seam = x:PW (retreats toward 0)
+  //   Right panel: outer wall = x:PW (stays), seam = x:0 (retreats toward PW)
+  //   Cloth folds are ONLY drawn between outerWall and seamEdge.
+  //   Everything outside that range is clearRect (transparent → hero shows through).
+  //
+  // openFraction=0 → seam at far edge (full cloth visible)
+  // openFraction=1 → seam retreated to outerWall (cloth fully bunched, transparent gap)
+  function drawPanel(cv, side, op) {
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, PW, H);
+    if (op >= 1) return;
+
+    const FOLDS = 20;
+    const SEGS  = 60;
+    const VALH  = 0;
+
+    // Animation curves — inner seam leads, outer wall lags
+    const innerT   = Math.min(op * 1.5, 1);
+    const outerT   = Math.max((op - 0.2) / 0.8, 0);
+    const innerSweep = easeExpo(innerT);   // 0→1 fast
+    const outerSweep = easeCubic(outerT);  // 0→1 slow, delayed
+
+    for (let f = 0; f < FOLDS; f++) {
+      const frac0 = f       / FOLDS;  // fold position fraction, 0=seam side, 1=wall side (L) or inverse
+      const frac1 = (f + 1) / FOLDS;
+      // foldZ: lighting — positive = lit ridge, negative = shadow valley
+      const foldZ = Math.sin(f * Math.PI / 3 + 0.3) * (0.65 + op * 0.9);
+
+      const xs0 = [], xs1 = [], ys = [];
+
+      for (let s = 0; s <= SEGS; s++) {
+        const vt = s / SEGS;
+        const py = VALH + vt * (H - VALH + 30);
+
+        // Gravity: bottom lags behind top
+        const grav = Math.pow(vt, 0.6); // 0 at top, 1 at bottom
+
+        // Per-row sweeps factored by gravity
+        const rowInner = innerSweep * (1 - grav * 0.55); // top moves first
+        const rowOuter = outerSweep * (1 - grav * 0.45);
+
+        // Cloth width remaining at this row
+        // Starts at PW, shrinks to ~20% of PW when fully open
+        const clothW = PW * (1 - rowOuter * 0.80);
+
+        // Seam edge x-position at this row
+        // Left: seam starts at PW, retreats to 0
+        // Right: seam starts at 0, retreats to PW
+        const seamX = side === 'L'
+          ? PW - rowInner * (PW - clothW * 0.15)   // retreats left
+          : rowInner * (PW - clothW * 0.05);        // retreats right
+
+        // Map fold fractions to x within remaining cloth
+        // frac=0 → seam side, frac=1 → outer wall side
+        // So for Left:  frac=0 is near seamX, frac=1 is near 0
+        //    for Right: frac=0 is near seamX, frac=1 is near PW
+        function mapX(frac) {
+          // Linear interpolation between seamX and wallX
+          const wallX = side === 'L' ? 0 : PW;
+          const x = seamX + (wallX - seamX) * frac;
+          // Cloth ripple
+          const wave = (opening && op < 0.92)
+            ? (side==='L'?1:-1) * Math.sin(vt*Math.PI*4.8 + tickT*7 + f*0.8) * (1-op) * 9 * grav
+            : 0;
+          // Ambient breathe when closed
+          const breathe = Math.max(0, 1 - op*3) * Math.sin(tickT*0.9 + f*0.45 + vt*2) * 2.5 * vt;
+          const wx = side==='L' ? wave+breathe : -(wave+breathe);
+          return x + wx;
+        }
+
+        xs0.push(mapX(frac0));
+        xs1.push(mapX(frac1));
+        ys.push(py);
+      }
+
+      // Draw strip: outline in correct polygon order (no self-intersection)
+      // Left side of strip: xs0, top to bottom
+      // Right side: xs1, bottom to top
+      ctx.beginPath();
+      ctx.moveTo(xs0[0], ys[0]);
+      for (let s = 1; s <= SEGS; s++) ctx.lineTo(xs0[s], ys[s]);      // left edge down
+      for (let s = SEGS; s >= 0; s--) ctx.lineTo(xs1[s], ys[s]);      // right edge up
+      ctx.closePath();
+
+      // Velvet crimson fill with lighting
+      const lit = Math.max(0.25, 0.55 + foldZ * 0.32);
+      const R = Math.min(255, Math.round(175 * lit));
+      const G = Math.min(255, Math.round(8   * lit));
+      const B = Math.min(255, Math.round(8   * lit));
+
+      const midX = (xs0[Math.floor(SEGS/2)] + xs1[Math.floor(SEGS/2)]) / 2;
+      const grd = ctx.createLinearGradient(midX, VALH, midX, H);
+      grd.addColorStop(0,    `rgb(${Math.min(255,R+40)},${G+6},${B+6})`);
+      grd.addColorStop(0.2,  `rgb(${Math.min(255,R+20)},${G+3},${B+3})`);
+      grd.addColorStop(0.6,  `rgb(${R},${G},${B})`);
+      grd.addColorStop(0.85, `rgb(${Math.round(R*0.7)},${Math.round(G*0.5)},${Math.round(B*0.5)})`);
+      grd.addColorStop(1,    `rgb(${Math.round(R*0.42)},${Math.round(G*0.25)},${Math.round(B*0.25)})`);
+      ctx.fillStyle = grd;
+      ctx.fill();
+
+      // Highlight / shadow edge lines
+      if (Math.abs(foldZ) > 0.12) {
+        ctx.beginPath();
+        ctx.moveTo(xs0[0], ys[0]);
+        for (let s=1;s<=SEGS;s++) ctx.lineTo(xs0[s], ys[s]);
+        if (foldZ > 0) {
+          ctx.strokeStyle = `rgba(255,195,140,${Math.min(foldZ*0.22,0.25)})`;
+          ctx.lineWidth = 1 + foldZ*0.5;
+        } else {
+          ctx.strokeStyle = `rgba(0,0,0,${Math.min(-foldZ*0.45,0.5)})`;
+          ctx.lineWidth = 1.5 + (-foldZ)*1;
+        }
+        ctx.stroke();
+      }
+    }
+
+    // ── Gold seam trim line ──
+    // Draw the inner edge (seam) as a glowing gold line
+    ctx.beginPath();
+    for (let s = 0; s <= SEGS; s++) {
+      const vt = s / SEGS;
+      const py = VALH + vt * (H - VALH + 30);
+      const grav = Math.pow(vt, 0.6);
+      const rowInner = innerSweep * (1 - grav * 0.55);
+      const rowOuter = outerSweep * (1 - grav * 0.45);
+      const clothW = PW * (1 - rowOuter * 0.80);
+      const ex = side==='L'
+        ? PW - rowInner * (PW - clothW*0.15)
+        : rowInner * (PW - clothW*0.15);
+      const wave = (opening && op<0.9)
+        ? (side==='L'?1:-1)*Math.sin(vt*Math.PI*3.2+tickT*5)*(1-op)*12*grav : 0;
+      if (s===0) ctx.moveTo(ex+wave, py);
+      else       ctx.lineTo(ex+wave, py);
+    }
+    const goldG = ctx.createLinearGradient(0, VALH, 0, H);
+    goldG.addColorStop(0,    'rgba(255,230,120,0)');
+    goldG.addColorStop(0.07, 'rgba(255,235,130,0.9)');
+    goldG.addColorStop(0.4,  'rgba(240,195,65,0.7)');
+    goldG.addColorStop(0.75, 'rgba(200,150,30,0.45)');
+    goldG.addColorStop(1,    'rgba(120,75,12,0.1)');
+    ctx.strokeStyle = goldG;
+    ctx.lineWidth = 3.5;
+    ctx.stroke();
+
+    // ── Bottom drape swag ──
+    if (op > 0.3) {
+      const swagAmt = smoothstep((op-0.3)/0.7);
+      const clothW  = PW * (1 - outerSweep * 0.80);
+      const seamX   = side==='L' ? PW - innerSweep*(PW-clothW*0.15) : innerSweep*(PW-clothW*0.15);
+      const depth   = swagAmt * 85;
+
+      ctx.beginPath();
+      if (side==='L'){
+        ctx.moveTo(0, H*0.82);
+        ctx.bezierCurveTo(clothW*0.3, H*0.82+depth*0.5, clothW*0.7, H*0.82+depth, seamX, H*0.78);
+      } else {
+        ctx.moveTo(seamX, H*0.78);
+        ctx.bezierCurveTo(PW-clothW*0.7, H*0.82+depth, PW-clothW*0.3, H*0.82+depth*0.5, PW, H*0.82);
+      }
+      ctx.strokeStyle = `rgba(210,158,22,${0.45*swagAmt})`;
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+    }
+  }
+
+
+  // ─── Main loop ───────────────────────────────────────────────
+  function loop(){
+    tickT += 0.018;
+    if(opening) openT = Math.min((Date.now()-openStart)/OPEN_MS, 1);
+
+    drawPanel(cvL, 'L', openT);
+drawPanel(cvR, 'R', openT);
+
+const shift = easeExpo(openT) * (PW - 0.7);
+
+panelL.style.transform = `translateX(${-shift}px)`;
+panelR.style.transform = `translateX(${shift}px)`;
+
+
+    if(openT >= 1 && opening && !done){
+  done = true;
+
+  stage.remove(); // remove curtain completely
+
+  document.body.style.overflow = "";
+
+  initScrollReveal();
+  animateDiyas();
+}
+       
+    requestAnimationFrame(loop);
+  }
+
+  // ─── Open trigger ────────────────────────────────────────────
+  let hasOpened = false;
+  function startOpen(){
+    if(hasOpened) return;
+    hasOpened = true; opening = true; openStart = Date.now();
+    playBells();
+    spawnFlowers(45); setTimeout(()=>spawnFlowers(30),650); setTimeout(()=>spawnFlowers(20),1300);
+    const ct=document.getElementById('curtain-text');
+    const th=document.getElementById('tap-hint');
+    if(ct){ct.style.transition='opacity 0.35s'; ct.style.opacity='0';}
+    if(th){th.style.transition='opacity 0.25s'; th.style.opacity='0';}
+  }
+
+  panelL.addEventListener('pointerdown', startOpen);
+panelR.addEventListener('pointerdown', startOpen);
+stage.addEventListener('touchend', startOpen);
+  resize();
+  window.addEventListener('resize', resize);
+  setTimeout(()=>stage.classList.add('lit'), 700);
+  loop();
+})()
+
+
+/* ── DIYA ── */
+function drawDiya(cv, fs) {
+  const W=cv.width,H=cv.height,ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H*.72;
+  const ps=ctx.createRadialGradient(cx,cy+14,2,cx,cy+10,22);ps.addColorStop(0,'rgba(0,0,0,.5)');ps.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=ps;ctx.beginPath();ctx.ellipse(cx,cy+14,22,8,0,0,Math.PI*2);ctx.fill();
+  const rg=ctx.createLinearGradient(cx-22,cy-5,cx+22,cy+12);rg.addColorStop(0,'#D4784A');rg.addColorStop(.3,'#B8562C');rg.addColorStop(.7,'#8C3A14');rg.addColorStop(1,'#5C2008');
+  ctx.fillStyle=rg;ctx.beginPath();ctx.moveTo(cx-22,cy);ctx.bezierCurveTo(cx-24,cy+5,cx-18,cy+12,cx,cy+12);ctx.bezierCurveTo(cx+18,cy+12,cx+24,cy+5,cx+22,cy);ctx.bezierCurveTo(cx+20,cy-8,cx-20,cy-8,cx-22,cy);ctx.closePath();ctx.fill();
+  const og=ctx.createRadialGradient(cx-3,cy-3,1,cx,cy,14);og.addColorStop(0,'rgba(200,140,30,.85)');og.addColorStop(.5,'rgba(140,80,10,.75)');og.addColorStop(1,'rgba(60,30,5,.9)');
+  ctx.fillStyle=og;ctx.beginPath();ctx.ellipse(cx,cy-1,14,5,0,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='rgba(60,30,5,.9)';ctx.lineWidth=2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(cx,cy-1);ctx.lineTo(cx,cy-8);ctx.stroke();
+  const fw=6+Math.sin(fs)*1.4+Math.sin(fs*2.1)*.8,fh=18+Math.sin(fs*1.3)*3+Math.sin(fs*.7)*2;
+  const flx=cx+Math.sin(fs*.9)*1.5,fly=cy-8;
+  const hl=ctx.createRadialGradient(cx,fly-4,0,cx,fly,fh+10);hl.addColorStop(0,'rgba(200,117,10,.4)');hl.addColorStop(.4,'rgba(180,80,8,.2)');hl.addColorStop(1,'rgba(100,40,4,0)');
+  ctx.fillStyle=hl;ctx.beginPath();ctx.ellipse(cx,fly-4,fh*.9,fh+10,0,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.translate(flx,fly);
+  const fg=ctx.createRadialGradient(0,-fh*.2,0,0,0,fh);fg.addColorStop(0,'rgba(255,255,200,1)');fg.addColorStop(.15,'rgba(255,220,60,.95)');fg.addColorStop(.4,'rgba(232,80,10,.85)');fg.addColorStop(.75,'rgba(180,40,5,.5)');fg.addColorStop(1,'rgba(120,20,0,0)');
+  ctx.fillStyle=fg;ctx.beginPath();ctx.moveTo(0,fh*.5);ctx.bezierCurveTo(-fw,0,-fw*.6,-fh*.5,0,-fh);ctx.bezierCurveTo(fw*.6,-fh*.5,fw,0,0,fh*.5);ctx.closePath();ctx.fill();
+  ctx.restore();
+}
+let flameSeed=0;
+function animateDiyas(){flameSeed+=.06;document.querySelectorAll('.diya-cv').forEach((c,i)=>drawDiya(c,flameSeed+i*1.2));requestAnimationFrame(animateDiyas);}
+
+/* ── FLOWERS ── */
+function spawnFlowers(n){
+  const cl=['#E8304A','#F06070','#FF8899','#F4A020','#F8C040','#FFDD60','#FF6090','#FFB0C0','#CC2244','#EE4466'];
+  for(let i=0;i<n;i++)setTimeout(()=>{
+    const p=document.createElement('div');p.className='petal';
+    const m=Math.random()>.5,c=cl[Math.floor(Math.random()*cl.length)],s=m?(6+Math.random()*8):(8+Math.random()*12);
+    const x=Math.random()*window.innerWidth,fd=window.innerHeight+100,w=(Math.random()-.5)*200,r=Math.random()*720-360,d=2.5+Math.random()*2.5;
+    p.style.cssText=m?`left:${x}px;top:-20px;width:${s}px;height:${s*1.4}px;background:${c};border-radius:50% 50% 50% 50%/60% 60% 40% 40%;--dy:${fd+w}px;--rot:${r}deg;animation-duration:${d}s;opacity:0`:`left:${x}px;top:-20px;width:${s}px;height:${s*.7}px;background:${c};border-radius:60% 40% 50% 50%/70% 70% 30% 30%;--dy:${fd+w}px;--rot:${r}deg;animation-duration:${d}s;opacity:0`;
+    document.body.appendChild(p);setTimeout(()=>p.remove(),d*1000+500);
+  },i*55);
+}
+
+/* ── CONTINUOUS PETAL RAIN — full page, forever ── */
+(function(){
+  const cl=['#E8304A','#F06070','#FF8899','#F4A020','#F8C040','#FFDD60','#FF6090','#FFB0C0','#CC2244','#EE4466','#FFD700','#FFA07A'];
+
+  // Petals use position:fixed — always visible regardless of scroll position.
+  // They fall one full viewport height from top:-18px to bottom+120px.
+  // Loop runs forever with no stop condition.
+  function dropOne(){
+    const p=document.createElement('div'); p.className='petal';
+    const m=Math.random()>.45, c=cl[Math.floor(Math.random()*cl.length)];
+    const s=m?(4+Math.random()*6):(5+Math.random()*8);
+    const x=Math.random()*window.innerWidth;
+    const fallDist=window.innerHeight+120;
+    const drift=(Math.random()-.5)*180, rot=Math.random()*600-300;
+    const dur=6+Math.random()*6;  // 6-12 seconds = slow, graceful
+    p.style.cssText=m
+      ?`left:${x}px;top:-18px;width:${s}px;height:${s*1.3}px;background:${c};border-radius:50% 50% 50% 50%/60% 60% 40% 40%;--dy:${fallDist+drift}px;--rot:${rot}deg;animation-duration:${dur}s;opacity:0;position:fixed;pointer-events:none;z-index:9999`
+      :`left:${x}px;top:-18px;width:${s}px;height:${s*.65}px;background:${c};border-radius:60% 40% 50% 50%/70% 70% 30% 30%;--dy:${fallDist+drift}px;--rot:${rot}deg;animation-duration:${dur}s;opacity:0;position:fixed;pointer-events:none;z-index:9999`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), dur*1000+500);
+    // Next petal in 600-1500ms — gentle steady stream
+    setTimeout(dropOne, 600+Math.random()*900);
+  }
+
+  // Pre-seed some petals already mid-screen so it's not empty at load
+  for(let i=0;i<10;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div'); p.className='petal';
+      const m=Math.random()>.45, c=cl[Math.floor(Math.random()*cl.length)];
+      const s=m?(4+Math.random()*6):(5+Math.random()*8);
+      const x=Math.random()*window.innerWidth;
+      const startY=Math.random()*window.innerHeight*0.8;
+      const fallDist=window.innerHeight+120, drift=(Math.random()-.5)*180, rot=Math.random()*600-300;
+      const dur=6+Math.random()*6;
+      const rem=dur*((fallDist-startY)/fallDist);
+      p.style.cssText=m
+        ?`left:${x}px;top:${startY}px;width:${s}px;height:${s*1.3}px;background:${c};border-radius:50% 50% 50% 50%/60% 60% 40% 40%;--dy:${fallDist-startY+drift}px;--rot:${rot}deg;animation-duration:${rem}s;opacity:0;position:fixed;pointer-events:none;z-index:9999`
+        :`left:${x}px;top:${startY}px;width:${s}px;height:${s*.65}px;background:${c};border-radius:60% 40% 50% 50%/70% 70% 30% 30%;--dy:${fallDist-startY+drift}px;--rot:${rot}deg;animation-duration:${rem}s;opacity:0;position:fixed;pointer-events:none;z-index:9999`;
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(), rem*1000+500);
+    }, i*180);
+  }
+
+  setTimeout(dropOne, 800);
+})();
+
+/* ── BELLS ── */
+function playBells(){try{const A=new(window.AudioContext||window.webkitAudioContext)();const b=(f,tt,d,v=.2)=>{const o=A.createOscillator(),g=A.createGain();o.connect(g);g.connect(A.destination);o.type='sine';o.frequency.setValueAtTime(f,tt);g.gain.setValueAtTime(0,tt);g.gain.linearRampToValueAtTime(v,tt+.01);g.gain.exponentialRampToValueAtTime(.0001,tt+d);o.start(tt);o.stop(tt+d+.05);};const n=A.currentTime;b(880,n,2.8,.2);b(1760,n,2.2,.08);b(1046,n+.5,2.5,.18);b(2093,n+.5,2,.07);b(1318,n+1,3,.16);}catch(e){}}
+
+/* ── SCRATCH CARD ── */
+(function(){
+  const canvas=document.getElementById('foil-canvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const BW=560,BH=600;
+  function hp(){ctx.beginPath();ctx.moveTo(280,544);ctx.bezierCurveTo(280,544,36,376,36,204);ctx.bezierCurveTo(36,104,112,44,192,44);ctx.bezierCurveTo(232,44,268,64,280,96);ctx.bezierCurveTo(292,64,328,44,368,44);ctx.bezierCurveTo(448,44,524,104,524,204);ctx.bezierCurveTo(524,376,280,544,280,544);ctx.closePath();}
+  function df(){ctx.clearRect(0,0,BW,BH);ctx.globalCompositeOperation='source-over';const bg=ctx.createLinearGradient(0,0,BW,BH);bg.addColorStop(0,'#8B0000');bg.addColorStop(.18,'#B22222');bg.addColorStop(.35,'#9B1111');bg.addColorStop(.52,'#CC2233');bg.addColorStop(.68,'#8B0000');bg.addColorStop(.82,'#A81020');bg.addColorStop(1,'#6B0010');hp();ctx.fillStyle=bg;ctx.fill();ctx.save();hp();ctx.clip();for(let i=0;i<12;i++){const x=(i/12)*BW+BW*.05;const lg=ctx.createLinearGradient(x,0,x+60,BH);lg.addColorStop(0,'rgba(255,255,200,0)');lg.addColorStop(.4,`rgba(255,245,180,${.06+(i%3)*.04})`);lg.addColorStop(1,'rgba(255,255,200,0)');ctx.fillStyle=lg;ctx.fillRect(x,0,60,BH);}const seed={v:12345};const rng=()=>{seed.v=(seed.v*1664525+1013904223)&0xffffffff;return(seed.v>>>0)/0xffffffff;};for(let i=0;i<2200;i++){const gx=rng()*BW,gy=rng()*BH;ctx.fillStyle=rng()>.5?`rgba(255,240,160,${.04+rng()*.07})`:`rgba(120,70,0,${.03+rng()*.05})`;ctx.fillRect(gx,gy,1.5,1.5);}ctx.restore();}
+  df();
+  function toBC(cx,cy){const r=canvas.getBoundingClientRect();return{x:((cx-r.left)/r.width)*BW,y:((cy-r.top)/r.height)*BH};}
+  let isDown=false,last=null,revealed=false;
+  function sL(x0,y0,x1,y1){ctx.globalCompositeOperation='destination-out';ctx.lineWidth=72;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke();}
+  function sD(x,y){ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,36,0,Math.PI*2);ctx.fill();}
+  function check(){if(revealed)return;const d=ctx.getImageData(BW*.1,BH*.1,BW*.8,BH*.8).data;let cl=0,tot=0;for(let i=3;i<d.length;i+=32){if(d[i]<128)cl++;tot++;}if(cl/tot>.5){revealed=true;canvas.style.pointerEvents='none';let op=1;const ti=setInterval(()=>{op-=.04;canvas.style.opacity=String(Math.max(0,op));if(op<=0){clearInterval(ti);canvas.style.display='none';}},18);spawnFlowers(35);}}
+  canvas.addEventListener('mousedown',e=>{isDown=true;const p=toBC(e.clientX,e.clientY);last=p;sD(p.x,p.y);check();});
+  canvas.addEventListener('mousemove',e=>{if(!isDown||!last)return;const p=toBC(e.clientX,e.clientY);sL(last.x,last.y,p.x,p.y);last=p;check();});
+  window.addEventListener('mouseup',()=>{isDown=false;last=null;});
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation();isDown=true;const t=e.touches[0];const p=toBC(t.clientX,t.clientY);last=p;sD(p.x,p.y);check();},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();e.stopPropagation();if(!isDown||!last)return;const t=e.touches[0];const p=toBC(t.clientX,t.clientY);sL(last.x,last.y,p.x,p.y);last=p;check();},{passive:false});
+  canvas.addEventListener('touchend',e=>{e.preventDefault();isDown=false;last=null;},{passive:false});
+})();
+
+/* ── COUNTDOWN ── */
+const WD=new Date(2026,3,3,11,42,0);
+function tick(){const d=WD-Date.now();const p=n=>String(Math.max(0,n)).padStart(2,'0');if(d<=0){['D','H','M','S'].forEach(k=>{const e=document.getElementById('cd'+k);if(e)e.textContent='00';});return;}const e=k=>document.getElementById('cd'+k);if(e('D'))e('D').textContent=p(Math.floor(d/86400000));if(e('H'))e('H').textContent=p(Math.floor(d%86400000/3600000));if(e('M'))e('M').textContent=p(Math.floor(d%3600000/60000));if(e('S'))e('S').textContent=p(Math.floor(d%60000/1000));}
+tick();setInterval(tick,1000);
+
+/* ── SCROLL REVEAL ── */
+function initScrollReveal(){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.sr').forEach(el=>io.observe(el));}
+
+document.body.style.overflow='hidden';
+history.scrollRestoration='manual';
+</script>
+</body>
+</html>
