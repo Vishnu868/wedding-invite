@@ -407,7 +407,7 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
 
   let W, H, DPR, PW;
   let openT = 0, opening = false, openStart = 0;
-  const OPEN_MS = 2000;
+  const OPEN_MS = 7500;
   let tickT = 0, done = false;
 
   function easeExpo(t){ return t>=1?1:1-Math.pow(2,-10*Math.min(t,1)) }
@@ -631,14 +631,32 @@ panelR.style.transform = `translateX(${shift}px)`;
   // ─── Open trigger ────────────────────────────────────────────
   let hasOpened = false;
   function startOpen(){
-    if(hasOpened) return;
-    hasOpened = true; opening = true; openStart = Date.now();
-    spawnFlowers(45); setTimeout(()=>spawnFlowers(30),650); setTimeout(()=>spawnFlowers(20),1300);
-    const ct=document.getElementById('curtain-text');
-    const th=document.getElementById('tap-hint');
-    if(ct){ct.style.transition='opacity 0.35s'; ct.style.opacity='0';}
-    if(th){th.style.transition='opacity 0.25s'; th.style.opacity='0';}
-  }
+  if(hasOpened) return;
+
+  hasOpened = true; 
+  opening = true; 
+  openStart = Date.now();
+
+  // ❌ REMOVE bell sound
+  // playBells();
+
+  // ✅ ALLOW SCROLL IMMEDIATELY
+  document.body.style.overflow = "auto";
+
+  // ✅ KEY FIX → allow interaction through curtain
+  const stage = document.getElementById('curtain-stage');
+  stage.style.pointerEvents = "none";
+
+  spawnFlowers(45); 
+  setTimeout(()=>spawnFlowers(30),650); 
+  setTimeout(()=>spawnFlowers(20),1300);
+
+  const ct=document.getElementById('curtain-text');
+  const th=document.getElementById('tap-hint');
+
+  if(ct){ct.style.transition='opacity 0.35s'; ct.style.opacity='0';}
+  if(th){th.style.transition='opacity 0.25s'; th.style.opacity='0';}
+}
 
   panelL.addEventListener('pointerdown', startOpen);
 panelR.addEventListener('pointerdown', startOpen);
