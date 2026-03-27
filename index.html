@@ -217,7 +217,7 @@ footer{background:#040302;padding:55px 28px 70px;text-align:center;border-top:1p
 <body>
 
 <!-- Background Music -->
-<audio id="bg-music" src="YOUR_MUSIC_FILE_PATH" loop preload="auto"></audio>
+<audio id="bg-music" src="assets/jwdss.mp3" loop preload="auto"></audio>
 
 <!-- Minimal Speaker Button (Bottom Left) -->
 <button id="music-btn" style="
@@ -633,7 +633,6 @@ panelR.style.transform = `translateX(${shift}px)`;
   function startOpen(){
     if(hasOpened) return;
     hasOpened = true; opening = true; openStart = Date.now();
-    playBells();
     spawnFlowers(45); setTimeout(()=>spawnFlowers(30),650); setTimeout(()=>spawnFlowers(20),1300);
     const ct=document.getElementById('curtain-text');
     const th=document.getElementById('tap-hint');
