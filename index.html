@@ -162,8 +162,23 @@ body{background:var(--black);font-family:'Cormorant Garamond',serif;overflow-x:h
 .diya-unit{display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
 .diya-canvas-wrap{position:relative;width:72px;height:80px}
 .diya-canvas-wrap canvas{width:72px;height:80px;display:block}
-.diya-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:radial-gradient(circle,rgba(200,117,10,0.45) 0%,transparent 70%);animation:diya-pulse 2s ease-in-out infinite alternate;pointer-events:none}
-@keyframes diya-pulse{0%{opacity:0.5;transform:translateX(-50%) scale(0.85)}100%{opacity:1;transform:translateX(-50%) scale(1.2)}}
+.diya-glow{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,117,10,0.45) 0%,transparent 70%);
+  animation:diya-pulse 2s ease-in-out infinite alternate;
+  pointer-events:none
+}
+
+@keyframes diya-pulse{
+  0%{opacity:0.5;transform:translateX(-50%) scale(0.85)}
+  100%{opacity:1;transform:translateX(-50%) scale(1.2)}
+}
 .cd-num{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-hi);font-size:2rem;line-height:1;display:block;text-shadow:0 0 20px rgba(200,117,10,0.6)}
 .cd-unit-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:2px;color:rgba(200,117,10,0.5);text-transform:uppercase;display:block}
 .cd-unit-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.3);font-size:0.54rem;display:block}
