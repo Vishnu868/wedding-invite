@@ -51,25 +51,6 @@ body{background:var(--black);font-family:'Cormorant Garamond',serif;overflow-x:h
 .name-amp{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:rgba(200,117,10,0.55);font-size:2rem;display:block;line-height:1.8}
 .name-bride{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(2.1rem,9vw,3.3rem);line-height:1.1;color:#F0D0A0;text-shadow:0 2px 8px rgba(0,0,0,0.75),0 0 45px rgba(200,117,10,0.35)}
 .name-tel{font-family:'Noto Serif Telugu',serif;color:rgba(200,117,10,0.7);font-size:0.76rem;margin-top:10px}
-/* 🔥 Glow Animation */
-.name-groom, .name-bride {
-  animation: glow 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  0% {
-    text-shadow:
-      0 2px 8px rgba(0,0,0,0.8),
-      0 0 30px rgba(200,117,10,0.4),
-      0 0 60px rgba(200,117,10,0.2);
-  }
-  100% {
-    text-shadow:
-      0 2px 8px rgba(0,0,0,0.8),
-      0 0 60px rgba(240,200,64,0.8),
-      0 0 120px rgba(240,200,64,0.4);
-  }
-}
 .parents-card{width:100%;max-width:310px;background:rgba(200,117,10,0.07);backdrop-filter:blur(14px);border:1px solid rgba(200,117,10,0.2);border-radius:20px;padding:22px 26px;box-shadow:0 12px 40px rgba(0,0,0,0.6);position:relative;z-index:2;margin-top:28px}
 .p-label{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
 .p-value{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(240,208,160,0.82);font-size:0.98rem;line-height:1.5}
